@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="SuMKern">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../SuMWin 7.3.1/Bibs/in userlib/SuMKern.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SuMWin 7.3.1/Bibs/in userlib/SuMWerkzeuge.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
