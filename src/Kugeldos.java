@@ -28,21 +28,23 @@ public class Kugeldos {
         kugelB.radiere();
         kugelB.zeichneKreis(20);
         kugelB.normal();
-        kugelB.bewegeUm(speedB);
+        kugelB.bewegeUm(20); // normal: speedB / 20px
         kugelB.zeichneKreis(20);
         uhr.warte(20);
 
+        /*
         if (speedB < 5) {
             speedB = speedB - 1;
             if (speedB == 1) {
                 System.out.println("Object Kugeluno stopped.");
             }
         }
+        */
 
         // Test for wall colision
         if (reset > 5) {
-            if (kugelB.hPosition() < bildschirm.breite() * 0.1 || kugelB.hPosition() > bildschirm.breite() * 0.9 || kugelB.vPosition() < bildschirm.hoehe() * 0.1 || kugelB.vPosition() > bildschirm.hoehe() * 0.9) {
-                speedB = speedB - 3; // Slow down by 3pixels per tick each time
+            if (kugelB.hPosition() < bildschirm.breite() * 0.12 || kugelB.hPosition() > bildschirm.breite() * 0.88 || kugelB.vPosition() < bildschirm.hoehe() * 0.22 || kugelB.vPosition() > bildschirm.hoehe() * 0.78) {
+                speedB = speedB - 5; // Slow down by 3pixels per tick each time
                 Bounce(bildschirm);
             }
         }
@@ -51,24 +53,26 @@ public class Kugeldos {
 
     private static void Bounce(Bildschirm bildschirm) {
         reset = 0;
+
         // Set correct bounce angle
-        if (kugelB.hPosition() < bildschirm.breite() * 0.1) {
-            if (randomB.nextInt(1, 2) == 1) {
-                angB = randomB.nextInt(0, 80);
+        if (kugelB.hPosition() < bildschirm.breite() * 0.12) {
+            if (randomB.nextInt(1, 10) < 5) {
+                angB = randomB.nextInt(1, 80);
             } else {
-                angB = randomB.nextInt(260, 259);
+                angB = randomB.nextInt(260, 359);
             }
-        } else if (kugelB.hPosition() > bildschirm.breite() * 0.9) {
+
+        } else if (kugelB.hPosition() > bildschirm.breite() * 0.88) {
             angB = randomB.nextInt(100, 260);
-        } else if (kugelB.vPosition() < bildschirm.hoehe() * 0.1) {
+        } else if (kugelB.vPosition() < bildschirm.hoehe() * 0.22) {
             angB = randomB.nextInt(170, 350);
-        } else if (kugelB.vPosition() > bildschirm.hoehe() * 0.9) {
+        } else if (kugelB.vPosition() > bildschirm.hoehe() * 0.78) {
             angB = randomB.nextInt(10, 170);
         } else {
             System.out.println("Illegal position");
         }
         kugelB.dreheBis(angB);
-        System.out.println("Bounce angle: " + angB);
+        System.out.println("Bounce angB: " + angB);
         Tisch.tischLoop();
     }
 }
