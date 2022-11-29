@@ -1,6 +1,5 @@
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
-import sum.werkzeuge.Uhr;
 
 import java.util.Random;
 
@@ -8,7 +7,6 @@ public class Kugeldos {
     static Buntstift kugelB = new Buntstift();
     static Random rng = new Random();
     static Random randomB = new Random();
-    static Uhr uhr = new Uhr();
     static int angB;
     static int speedB = 20; // Verzögerung zwischen bewegungen in 1/1000 sec.
     static int reset;
@@ -30,7 +28,6 @@ public class Kugeldos {
         kugelB.normal();
         kugelB.bewegeUm(20); // normal: speedB / 20px
         kugelB.zeichneKreis(20);
-        uhr.warte(20);
 
         /*
         if (speedB < 5) {

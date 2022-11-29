@@ -1,10 +1,12 @@
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
+import sum.werkzeuge.Uhr;
 
 public class Tisch {
-    static Bildschirm bildschirm = new Bildschirm();
+    static Bildschirm bildschirm = new Bildschirm(true);
     static Buntstift rand = new Buntstift();
     static int reset;
+    static Uhr uhr = new Uhr();
 
     public Tisch() {
 
@@ -19,12 +21,11 @@ public class Tisch {
 
         }
         */
-
-        zeichnen();
         Kugeluno.zeichneKugel(bildschirm);
         Kugeldos.zeichneKugel(bildschirm);
         Kugeltres.zeichneKugel(bildschirm);
         Kugelcuatro.zeichneKugel(bildschirm);
+        zeichnen();
         tischLoop();
     }
 
@@ -53,5 +54,7 @@ public class Tisch {
         // initial position
         rand.bewegeBis(bildschirm.breite() * 0.1, bildschirm.hoehe() * 0.2);
         rand.hoch();
+        uhr.warte(20);
+        bildschirm.zeichneDich();
     }
 }

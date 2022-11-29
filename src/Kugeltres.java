@@ -1,6 +1,5 @@
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
-import sum.werkzeuge.Uhr;
 
 import java.util.Random;
 
@@ -8,7 +7,6 @@ public class Kugeltres {
     static Buntstift kugelC = new Buntstift();
     static Random rng = new Random();
     static Random randomC = new Random();
-    static Uhr uhr = new Uhr();
     static int angC;
     static int speedC = 20; // Verzögerung zwischen bewegungen in 1/1000 sec.
     static int reset;
@@ -30,7 +28,6 @@ public class Kugeltres {
         kugelC.normal();
         kugelC.bewegeUm(20); // normal: speedC / 20px
         kugelC.zeichneKreis(20);
-        uhr.warte(20);
 
         /*
         if (speedC < 5) {

@@ -1,6 +1,5 @@
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
-import sum.werkzeuge.Uhr;
 
 import java.util.Random;
 
@@ -8,7 +7,6 @@ public class Kugeluno {
     static Buntstift kugelA = new Buntstift();
     static Random rng = new Random();
     static Random randomA = new Random();
-    static Uhr uhr = new Uhr();
     static int angA;
     static int speedA = 20; // Verzögerung zwischen bewegungen in 1/1000 sec.
     static int reset;
@@ -30,7 +28,7 @@ public class Kugeluno {
         kugelA.normal();
         kugelA.bewegeUm(20); // normal: speedA / 20px
         kugelA.zeichneKreis(20);
-        uhr.warte(20);
+        // uhr.warte(20);
 
         /*
         if (speedA < 5) {
