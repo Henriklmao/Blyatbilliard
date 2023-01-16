@@ -9,24 +9,25 @@ public class Main {
     static double ah = .1;
     static double bw = .6;
     static double bh = .1;
-    static double ballAS = 6;
-    static double ballBS = 5;
+    static double ballAS = 15;
+    static double ballBS = 20;
 
     public static void main(String[] args) {
         Bildschirm bildschirm = new Bildschirm(true);
 
-        Tisch tischA = new Tisch(800, 400);
-        Tisch tischB = new Tisch(800, 400);
-        tischB.bewegeBis(100, 400);
+        Tisch tischA = new Tisch(bildschirm.breite()*.35, bildschirm.hoehe()*.85);
+        Tisch tischB = new Tisch(bildschirm.breite()*.35, bildschirm.hoehe()*.85);
+        tischA.bewegeBis(bildschirm.breite()*aw, bildschirm.hoehe()*ah);
+        tischB.bewegeBis(bildschirm.breite()*bw, bildschirm.hoehe()*bh);
 
-        ArrayList<Kugel> KugelnA = new ArrayList<Kugel>();
-        ArrayList<Kugel> KugelnB = new ArrayList<Kugel>();
+        var KugelnA = new ArrayList<Kugel>();
+        var KugelnB = new ArrayList<Kugel>();
 
-        for (int i = 0; i < 70; i++) { // middle value is number of balls
+        for (int i = 0; i < 12; i++) { // middle value is number of balls
             Kugel kugel = new Kugel(i, ballAS, bildschirm, tischA);
             KugelnA.add(kugel);
         }
-        for (int i = 0; i < 100; i++) { // middle value is number of balls
+        for (int i = 0; i < 20; i++) { // middle value is number of balls
             Kugel kugel = new Kugel(i, ballBS, bildschirm, tischB);
             KugelnB.add(kugel);
         }
