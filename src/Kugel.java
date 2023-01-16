@@ -49,7 +49,6 @@ public class Kugel {
         }
          */
 
-        // Placeholder for colission Test
         if (kugel.hPosition() + size + 3 >= table.getRechterRand()) { // +3/-3 as buffer
             bounce(bildschirm, size, false);
         } else if (kugel.hPosition() - size - 3 <= table.getLinkerRand()) {
