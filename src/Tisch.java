@@ -1,35 +1,38 @@
 import sum.kern.Buntstift;
 
-
 public class Tisch {
 
-    static double width;
-    static double height;
-    static Buntstift rand = new Buntstift();
+    double width;
+    double height;
+    Buntstift rand = new Buntstift();
 
-    public static double getLinkerRand() {
+    Tisch (double w, double h) {
+        width = w;
+        height = h;
+    }
+
+    public void bewegeBis(double x, double y) {
+        rand.bewegeBis(x, y);
+    }
+
+    public double getLinkerRand() {
         return rand.hPosition();
     }
 
-    public static double getRechterRand() {
+    public double getRechterRand() {
         return rand.hPosition() + width;
     }
 
-    public static double getObererRand() {
+    public double getObererRand() {
         return rand.vPosition();
     }
 
-    public static double getUntererRand() {
+    public double getUntererRand() {
         return rand.vPosition() + height;
     }
 
-    public void zeichnen(double sWidth, double sHeight, double fInitW, double fInitH) { //fBreite = Faktor Breite
-        width = sWidth * 0.35;
-        height = sHeight * 0.85;
-        rand.bewegeBis(sWidth * fInitW, sHeight * fInitH);
-        rand.runter();
-        rand.zeichneRechteck(sWidth * 0.35, sHeight * 0.85);        //(width ,height);
-        rand.hoch();
+    public void zeichnen() { // fBreite = Faktor Breite
+        rand.zeichneRechteck(width, height); // (width ,height);
     }
 
 }

@@ -1,67 +1,75 @@
+import java.awt.Color;
+import java.util.Random;
+
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
 
-import java.awt.*;
-import java.util.Random;
-
-
 public class Kugel {
 
-    static double speed = 20;
-    static double radius;
+    static double speed = 2;
+    double radius;
     Buntstift kugel = new Buntstift();
+    Tisch tisch;
+    Bildschirm bildschirm;
+    int id;
 
-    public void zeichneKugel(Bildschirm bildschirm, double tWidth, double tHeight, double size, int id) {
+    Kugel(int id, double radius, Bildschirm bildschirm, Tisch tisch) {
+        this.id = id;
+        this.radius = radius;
+        this.bildschirm = bildschirm;
+        this.tisch = tisch;
 
-        radius = size;
-        kugel.bewegeBis(bildschirm.breite() * tWidth, bildschirm.hoehe() * tHeight);
-        double cW = bildschirm.breite() * 0.35 / 2;
-        double cH = bildschirm.hoehe() * 0.85 / 2;
+        mitte();
+    }
 
-        kugel.bewegeBis(cW + bildschirm.breite() * tWidth, cH + bildschirm.hoehe() * tHeight);
-        kugel.zeichneKreis(size);
+    private void mitte() {
+        kugel.bewegeBis(tisch.width / 2 + tisch.getLinkerRand(), tisch.height / 2 + tisch.getObererRand());
+    }
+
+    public void zeichneKugel() {
+        kugel.zeichneKreis(radius);
         kugel.setzeFuellmuster(1);
         kugel.setzeFarbe(Color.black);
 
         Random rng = new Random();
         double ang = rng.nextInt(359);
         kugel.dreheBis(ang);
-        System.out.println("Random Angle " + id * -1 + " " + kugel.winkel() + "°");
+        // System.out.println("Random Angle " + id * -1 + " " + kugel.winkel() + "°");
     }
 
-    public void bewegeKugel(Bildschirm bildschirm, double tWidth, double tHeight, double size, Tisch table) {
+    public void bewegeKugel() {
 
         // Erase
         kugel.radiere();
-        kugel.zeichneKreis(size);
+        kugel.zeichneKreis(radius);
         kugel.normal();
 
         // Move and Redraw
         kugel.bewegeUm(speed);
-        kugel.zeichneKreis(size);
+        kugel.zeichneKreis(radius);
 
-        //slow down
+        // slow down
         /*
-        if (speed>.001) {
-            speed = speed-.001;
-        }else{
-            speed=0;
-        }
+         * if (speed>.001) {
+         * speed = speed-.001;
+         * }else{
+         * speed=0;
+         * }
          */
 
-        if (kugel.hPosition() + size + 3 >= table.getRechterRand()) { // +3/-3 as buffer
-            bounce(bildschirm, size, false);
-        } else if (kugel.hPosition() - size - 3 <= table.getLinkerRand()) {
-            bounce(bildschirm, size, false);
-        } else if (kugel.vPosition() - size - 3 <= table.getObererRand()) {
-            bounce(bildschirm, size, true);
-        } else if (kugel.vPosition() + size + 3 >= table.getUntererRand()) {
-            bounce(bildschirm, size, true);
+        if (kugel.hPosition() + radius >= tisch.getRechterRand()) { // +3/-3 as buffer
+            bounce(false);
+        } else if (kugel.hPosition() - radius <= tisch.getLinkerRand()) {
+            bounce(false);
+        } else if (kugel.vPosition() - radius <= tisch.getObererRand()) {
+            bounce(true);
+        } else if (kugel.vPosition() + radius >= tisch.getUntererRand()) {
+            bounce(true);
         }
 
     }
 
-    public void bounce(Bildschirm bildschirm, double size, boolean vcol) {
+    public void bounce(boolean vcol) {
 
         if (vcol) {
             kugel.dreheBis(-kugel.winkel());

@@ -15,24 +15,25 @@ public class Main {
     public static void main(String[] args) {
         Bildschirm bildschirm = new Bildschirm(true);
 
-        Tisch tischA = new Tisch();
-        Tisch tischB = new Tisch();
+        Tisch tischA = new Tisch(800, 400);
+        Tisch tischB = new Tisch(800, 400);
+        tischB.bewegeBis(100, 400);
 
-        var KugelnA = new ArrayList<Kugel>();
-        var KugelnB = new ArrayList<Kugel>();
+        ArrayList<Kugel> KugelnA = new ArrayList<Kugel>();
+        ArrayList<Kugel> KugelnB = new ArrayList<Kugel>();
 
         for (int i = 0; i < 70; i++) { // middle value is number of balls
-            Kugel kugel = new Kugel();
+            Kugel kugel = new Kugel(i, ballAS, bildschirm, tischA);
             KugelnA.add(kugel);
         }
         for (int i = 0; i < 100; i++) { // middle value is number of balls
-            Kugel kugel = new Kugel();
+            Kugel kugel = new Kugel(i, ballBS, bildschirm, tischB);
             KugelnB.add(kugel);
         }
 
         // Init draw of tables
-        tischA.zeichnen(bildschirm.breite(), bildschirm.hoehe(), aw, ah); // Factor of Breite and Höhe
-        tischB.zeichnen(bildschirm.breite(), bildschirm.hoehe(), bw, bh);
+        tischA.zeichnen(); // Factor of Breite and Höhe
+        tischB.zeichnen();
 
         init(bildschirm, KugelnA, KugelnB);
         Program(bildschirm, tischA, tischB, KugelnA, KugelnB);
@@ -44,23 +45,24 @@ public class Main {
         System.out.println("Made by Henrik B.");
 
         for (int i = 0; i < KugelnA.size(); i++) {
-            KugelnA.get(i).zeichneKugel(bildschirm, aw, ah, ballAS, i);
+            KugelnA.get(i).zeichneKugel();
         }
         for (int i = 0; i < KugelnB.size(); i++) {
-            KugelnB.get(i).zeichneKugel(bildschirm, bw, bh, ballBS, i);
+            KugelnB.get(i).zeichneKugel();
         }
     }
 
-    static void Program(Bildschirm bildschirm, Tisch tischA, Tisch tischB, ArrayList<Kugel> KugelnA, ArrayList<Kugel> KugelnB) {
+    static void Program(Bildschirm bildschirm, Tisch tischA, Tisch tischB, ArrayList<Kugel> KugelnA,
+            ArrayList<Kugel> KugelnB) {
         while (!IsGameOver) {
-            tischA.zeichnen(bildschirm.breite(), bildschirm.hoehe(), aw, ah);
-            tischB.zeichnen(bildschirm.breite(), bildschirm.hoehe(), bw, bh);
+            tischA.zeichnen();
+            tischB.zeichnen();
 
             for (int i = 0; i < KugelnA.size(); i++) {
-                KugelnA.get(i).bewegeKugel(bildschirm, aw, ah, ballAS, tischA);
+                KugelnA.get(i).bewegeKugel();
             }
             for (int i = 0; i < KugelnB.size(); i++) {
-                KugelnB.get(i).bewegeKugel(bildschirm, bw, bh, ballBS, tischB);
+                KugelnB.get(i).bewegeKugel();
             }
             bildschirm.zeichneDich();
 
@@ -83,8 +85,6 @@ public class Main {
                 IsGameOver = true;
                 System.out.println("Game Over");
             }
-            Uhr uhr = new Uhr();
-            uhr.warte(20);
         }
         // Placeholder for Gameover screen.
 

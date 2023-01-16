@@ -1,0 +1,7 @@
+{
+	"java.project.referencedLibraries": [
+		"lib/**/*.jar",
+		"dependencies/SuMKern.jar",
+		"dependencies/SuMWerkzeuge.jar"
+	]
+}
