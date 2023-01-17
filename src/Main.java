@@ -1,5 +1,4 @@
 import sum.kern.Bildschirm;
-import sum.werkzeuge.Uhr;
 
 import java.util.ArrayList;
 
@@ -45,11 +44,11 @@ public class Main {
         bildschirm.setTitle("8-Ball 2.0");
         System.out.println("Made by Henrik B.");
 
-        for (int i = 0; i < KugelnA.size(); i++) {
-            KugelnA.get(i).zeichneKugel();
+        for (Kugel value : KugelnA) {
+            value.zeichneKugel();
         }
-        for (int i = 0; i < KugelnB.size(); i++) {
-            KugelnB.get(i).zeichneKugel();
+        for (Kugel kugel : KugelnB) {
+            kugel.zeichneKugel();
         }
     }
 
@@ -59,11 +58,11 @@ public class Main {
             tischA.zeichnen();
             tischB.zeichnen();
 
-            for (int i = 0; i < KugelnA.size(); i++) {
-                KugelnA.get(i).bewegeKugel();
+            for (Kugel kugel : KugelnA) {
+                kugel.bewegeKugel();
             }
-            for (int i = 0; i < KugelnB.size(); i++) {
-                KugelnB.get(i).bewegeKugel();
+            for (Kugel kugel : KugelnB) {
+                kugel.bewegeKugel();
             }
             bildschirm.zeichneDich();
 

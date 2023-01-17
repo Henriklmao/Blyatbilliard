@@ -19,10 +19,10 @@ public class Kugel {
         this.bildschirm = bildschirm;
         this.tisch = tisch;
 
-        mitte();
+        center();
     }
 
-    private void mitte() {
+    private void center() {
         kugel.bewegeBis(tisch.width / 2 + tisch.getLinkerRand(), tisch.height / 2 + tisch.getObererRand());
     }
 
@@ -80,10 +80,6 @@ public class Kugel {
 
     public boolean isAlive() {
 
-        if (speed == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return speed != 0;
     }
 }
