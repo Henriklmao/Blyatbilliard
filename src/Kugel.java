@@ -1,8 +1,8 @@
-import java.awt.Color;
-import java.util.Random;
-
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
+
+import java.awt.*;
+import java.util.Random;
 
 public class Kugel {
 
@@ -32,7 +32,7 @@ public class Kugel {
         kugel.setzeFarbe(Color.black);
 
         Random rng = new Random();
-        double ang = rng.nextInt(359);
+        double ang = rng.nextDouble(359);
         kugel.dreheBis(ang);
         // System.out.println("Random Angle " + id * -1 + " " + kugel.winkel() + "°");
     }
@@ -76,6 +76,18 @@ public class Kugel {
         } else {
             kugel.dreheBis(180 - kugel.winkel());
         }
+    }
+
+    public void collission() {
+        kugel.dreheBis(180 - kugel.winkel());
+    }
+
+    public double GetX() {
+        return kugel.hPosition();
+    }
+
+    public double GetY() {
+        return kugel.vPosition();
     }
 
     public boolean isAlive() {

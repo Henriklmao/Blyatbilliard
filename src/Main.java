@@ -26,7 +26,7 @@ public class Main {
             Kugel kugel = new Kugel(i, ballAS, bildschirm, tischA);
             KugelnA.add(kugel);
         }
-        for (int i = 0; i < 20; i++) { // middle value is number of balls
+        for (int i = 0; i < 16; i++) { // middle value is number of balls
             Kugel kugel = new Kugel(i, ballBS, bildschirm, tischB);
             KugelnB.add(kugel);
         }
@@ -85,8 +85,44 @@ public class Main {
                 IsGameOver = true;
                 System.out.println("Game Over");
             }
+            // TestCollision(KugelnA, (int) ballAS);
+            // TestCollision(KugelnB, (int) ballBS);
+
+
         }
         // Placeholder for Gameover screen.
 
+    }
+
+    private static void TestCollision(ArrayList<Kugel> table, int radius) {
+
+        var x = new ArrayList<Integer>();
+        var y = new ArrayList<Integer>();
+
+        // add X positions from subject table array to x memory
+        for (Kugel kugel : table) {
+            x.add((int) kugel.GetX());
+        }
+
+        try {
+            for (int i = 0; i < x.size(); i++) {
+                // create array list from sublist which only includes values between a
+                var temp = new ArrayList<>(x.subList((x.get(i) - radius), (x.get(i) + radius)));
+                // Re-Reference Temp list entrys with Kugel Objects.
+                for (Integer integer : temp) {
+                    for (Kugel kugel : table) {
+                        if (kugel.GetX() == integer) {
+                            // Check if Y also matches
+                            if (kugel.GetY() < table.get(i).GetY() + radius + 1 && kugel.GetY() > table.get(i).GetY() - radius - 1) {
+                                kugel.collission();
+                            }
+                        }
+                    }
+                }
+                System.out.println(temp);
+            }
+        } catch (Exception e) {
+            System.out.println("Exception in arrays.");
+        }
     }
 }
