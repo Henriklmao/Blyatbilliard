@@ -1,6 +1,13 @@
+/**
+ *      ---Kugel Class by Henrik---
+ *
+ *      Ball meant to be used as an Object in an Array for Blytbilliard.
+ *
+ */
+
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
-
+import java.lang.Math;
 import java.awt.*;
 import java.util.Random;
 
@@ -78,8 +85,22 @@ public class Kugel {
         }
     }
 
-    public void collission() {
-        kugel.dreheBis(180 - kugel.winkel());
+    public void collission(double enemyX, double enemyY) { // Calculate enemy angle of attack and reflect
+
+        /** Trigonometrische Beziehungen in der Berechnung von AoA für phys. korrekte Reflektion.
+         a = Hypotenuse
+         X = Gegenkatete
+         Y = Ankatete
+         */
+        int deltaX= (int) (enemyX-kugel.hPosition()); // get X axis difference
+        if (deltaX<0) {deltaX=-deltaX;}
+
+        int deltaY= (int) (enemyY-kugel.vPosition());
+        if (deltaY<0) {deltaY=-deltaY;}
+        double rad = Math.tanh(enemyX/enemyY);
+        System.out.println(rad);
+
+        //kugel.dreheBis(180 - AoA);
     }
 
     public double GetX() {

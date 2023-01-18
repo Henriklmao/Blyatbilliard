@@ -1,3 +1,11 @@
+/**
+ *      ---Blyatbilliard Main class by Henrik---
+ *
+ *  Sum.kern (https://www.mg-werl.de/sum/) based simulation of 2D billiard balls on Tables
+ *  Idea: School Project - Billiardspiel (2022 BGH)
+ *
+ */
+
 import sum.kern.Bildschirm;
 
 import java.util.ArrayList;
@@ -11,7 +19,7 @@ public class Main {
     static double ballAS = 15;
     static double ballBS = 20;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Bildschirm bildschirm = new Bildschirm(true);
 
         Tisch tischA = new Tisch(bildschirm.breite()*.35, bildschirm.hoehe()*.85);
@@ -53,8 +61,10 @@ public class Main {
     }
 
     static void Program(Bildschirm bildschirm, Tisch tischA, Tisch tischB, ArrayList<Kugel> KugelnA,
-            ArrayList<Kugel> KugelnB) {
+            ArrayList<Kugel> KugelnB) throws InterruptedException {
         while (!IsGameOver) {
+            System.gc();
+
             tischA.zeichnen();
             tischB.zeichnen();
 
@@ -85,44 +95,18 @@ public class Main {
                 IsGameOver = true;
                 System.out.println("Game Over");
             }
-            // TestCollision(KugelnA, (int) ballAS);
-            // TestCollision(KugelnB, (int) ballBS);
-
+            // Construct two threads
+            Collisionhandler collider1 = new Collisionhandler(KugelnA, ballAS);
+            Collisionhandler collider2 = new Collisionhandler(KugelnB, ballBS);
+            // Start both Threads
+            collider1.start();
+            collider2.start();
+            // wait for both threads to be finished
+            collider1.join();
+            collider2.join();
 
         }
         // Placeholder for Gameover screen.
 
-    }
-
-    private static void TestCollision(ArrayList<Kugel> table, int radius) {
-
-        var x = new ArrayList<Integer>();
-        var y = new ArrayList<Integer>();
-
-        // add X positions from subject table array to x memory
-        for (Kugel kugel : table) {
-            x.add((int) kugel.GetX());
-        }
-
-        try {
-            for (int i = 0; i < x.size(); i++) {
-                // create array list from sublist which only includes values between a
-                var temp = new ArrayList<>(x.subList((x.get(i) - radius), (x.get(i) + radius)));
-                // Re-Reference Temp list entrys with Kugel Objects.
-                for (Integer integer : temp) {
-                    for (Kugel kugel : table) {
-                        if (kugel.GetX() == integer) {
-                            // Check if Y also matches
-                            if (kugel.GetY() < table.get(i).GetY() + radius + 1 && kugel.GetY() > table.get(i).GetY() - radius - 1) {
-                                kugel.collission();
-                            }
-                        }
-                    }
-                }
-                System.out.println(temp);
-            }
-        } catch (Exception e) {
-            System.out.println("Exception in arrays.");
-        }
     }
 }

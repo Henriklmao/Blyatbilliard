@@ -1,3 +1,10 @@
+/**
+ *      ---Tisch Class by Henrik---
+ *
+ *      Table for Blyatbilliard. Used for visual representation of collisionborders for Kugel objects and
+ *      as positional reference.
+ *
+ */
 import sum.kern.Buntstift;
 
 public class Tisch {
