@@ -98,12 +98,15 @@ public class Main {
             // Construct two threads
             Collisionhandler collider1 = new Collisionhandler(KugelnA, ballAS);
             Collisionhandler collider2 = new Collisionhandler(KugelnB, ballBS);
-            // Start both Threads
+            // Start both threads
             collider1.start();
             collider2.start();
             // wait for both threads to be finished
             collider1.join();
             collider2.join();
+            // Kill created threads
+            collider1.stop();
+            collider2.stop();
 
         }
         // Placeholder for Gameover screen.
