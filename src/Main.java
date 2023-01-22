@@ -18,6 +18,7 @@ public class Main {
     static double bh = .1;
     static double ballAS = 15;
     static double ballBS = 20;
+    static int ticks = 0;
 
     public static void main(String[] args) throws InterruptedException {
         Bildschirm bildschirm = new Bildschirm(true);
@@ -96,20 +97,18 @@ public class Main {
                 System.out.println("Game Over");
             }
             // Construct two threads
-            Collisionhandler collider1 = new Collisionhandler(KugelnA, ballAS);
-            Collisionhandler collider2 = new Collisionhandler(KugelnB, ballBS);
-            // Start both threads
-            collider1.start();
-            collider2.start();
-            // wait for both threads to be finished
-            collider1.join();
-            collider2.join();
-            // Kill created threads
-            collider1.stop();
-            collider2.stop();
-
+            if (ticks > 20) {
+                Collisionhandler collider1 = new Collisionhandler(KugelnA, ballAS);
+                Collisionhandler collider2 = new Collisionhandler(KugelnB, ballBS);
+                // Start both threads
+                collider1.start();
+                collider2.start();
+                // wait for both threads to be finished
+                collider1.join();
+                collider2.join();
+            }
+            ticks++;
         }
         // Placeholder for Gameover screen.
-
     }
 }

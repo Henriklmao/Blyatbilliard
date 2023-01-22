@@ -7,7 +7,7 @@
 
 import sum.kern.Bildschirm;
 import sum.kern.Buntstift;
-import java.lang.Math;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -87,20 +87,24 @@ public class Kugel {
 
     public void collission(double enemyX, double enemyY) { // Calculate enemy angle of attack and reflect
 
-        /** Trigonometrische Beziehungen in der Berechnung von AoA für phys. korrekte Reflektion.
-         a = Hypotenuse
-         X = Gegenkatete
-         Y = Ankatete
+        /** Trigonometrische Beziehungen in der Berechnung von AoA fuer phys. korrekte Reflektion.
+         * a = Hypotenuse
+         * X = Gegenkatete
+         * Y = Ankatete
          */
-        int deltaX= (int) (enemyX-kugel.hPosition()); // get X axis difference
-        if (deltaX<0) {deltaX=-deltaX;}
+        double deltaX = (enemyX - kugel.hPosition()); // get X axis difference
+        //if (deltaX<0) deltaX = -deltaX;
 
-        int deltaY= (int) (enemyY-kugel.vPosition());
-        if (deltaY<0) {deltaY=-deltaY;}
-        double rad = Math.tanh(enemyX/enemyY);
-        System.out.println(rad);
+        double deltaY = (enemyY - kugel.vPosition());
+        //if (deltaY<0) deltaY = -deltaY;
 
-        //kugel.dreheBis(180 - AoA);
+        double ang = Math.toDegrees(Math.atan(deltaX / deltaY));
+        //*180/pi
+        //double ang = Math.toDegrees(rad);
+        //double ang = rad*180/Math.PI;
+        System.out.println(ang + "°");
+
+        kugel.dreheBis(180 - ang);
     }
 
     public double GetX() {
