@@ -85,23 +85,22 @@ public class Kugel {
         }
     }
 
-    public void collission(double enemyX, double enemyY) { // Calculate enemy angle of attack and reflect
+    public void collission(double x, double y) { // Calculate enemy angle of attack and reflect
 
         /** Trigonometrische Beziehungen in der Berechnung von AoA fuer phys. korrekte Reflektion.
          * a = Hypotenuse
          * X = Gegenkatete
          * Y = Ankatete
-         */
-        double deltaX = (enemyX - kugel.hPosition()); // get X axis difference
-        //if (deltaX<0) deltaX = -deltaX;
+         **/
+        // get X/Y axis differences
+        double deltaX = (x - kugel.hPosition());
 
-        double deltaY = (enemyY - kugel.vPosition());
-        //if (deltaY<0) deltaY = -deltaY;
+        double deltaY = (y - kugel.vPosition());
 
+        // Calculate
         double ang = Math.toDegrees(Math.atan(deltaX / deltaY));
-        //*180/pi
-        //double ang = Math.toDegrees(rad);
-        //double ang = rad*180/Math.PI;
+
+        //double ang = ang*180/Math.PI;
         System.out.println(ang + "°");
 
         kugel.dreheBis(180 - ang);

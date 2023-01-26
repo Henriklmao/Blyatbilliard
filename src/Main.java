@@ -8,6 +8,7 @@
 
 import sum.kern.Bildschirm;
 
+import javax.management.loading.MLet;
 import java.util.ArrayList;
 
 public class Main {
@@ -41,7 +42,7 @@ public class Main {
         }
 
         // Init draw of tables
-        tischA.zeichnen(); // Factor of Breite and Höhe
+        tischA.zeichnen();
         tischB.zeichnen();
 
         init(bildschirm, KugelnA, KugelnB);
@@ -64,8 +65,9 @@ public class Main {
     static void Program(Bildschirm bildschirm, Tisch tischA, Tisch tischB, ArrayList<Kugel> KugelnA,
             ArrayList<Kugel> KugelnB) throws InterruptedException {
         while (!IsGameOver) {
-            System.gc();
+            System.gc(); // Raises garbage collector priority. Allows multithreading on less powerful machines.
 
+            // Redraw tables
             tischA.zeichnen();
             tischB.zeichnen();
 
@@ -75,6 +77,8 @@ public class Main {
             for (Kugel kugel : KugelnB) {
                 kugel.bewegeKugel();
             }
+
+            // Call bildschirm to draw screen image. Used for double buffering.
             bildschirm.zeichneDich();
 
             // Test for death
@@ -106,8 +110,8 @@ public class Main {
                 // wait for both threads to be finished
                 collider1.join();
                 collider2.join();
-            }
-            ticks++;
+            }else ticks++;
+
         }
         // Placeholder for Gameover screen.
     }

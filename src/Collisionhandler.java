@@ -1,12 +1,13 @@
 /**
  * ---Collisionhandler by Henrik---
- * <p>
+ *
  * Allows for multithreaded calculation of collisions between Kugel objects.
- * <p>
- * I had to go out of my way for that commenting. Looks almost like disassembly mnemonic
+ *
+ * I had to go out of my way for that commenting. Looks almost like disassembly mnemonics
  * Probably most commented class I ever wrote...
+ *
+ * Try Catch: Important to not let Collisionhandler crash when there's no collisions at time of call.
  */
-
 import java.util.ArrayList;
 
 public class Collisionhandler extends Thread {
@@ -14,6 +15,7 @@ public class Collisionhandler extends Thread {
     int radius;
 
     Collisionhandler(ArrayList<Kugel> table, double radius) {
+        // Initialize constructor parameters as class variables.
         this.table = table;
         this.radius = (int) radius;
     }
@@ -33,7 +35,7 @@ public class Collisionhandler extends Thread {
         }
 
         for (int i = 0; i < x.size(); i++) { // for every kugel in X-Array
-            try { // To ignore any erros poccuring
+             try { // Prevent crash due to multithreading array stuff.
                 for (Kugel kugel : table) { // For every kugel Object
                     if (kugel.GetY() < x.get(i) + radius && kugel.GetX() > x.get(i) - radius) {
                         /** Check Kugel with correct value for correct Y value**/
@@ -46,10 +48,6 @@ public class Collisionhandler extends Thread {
                 System.out.println("Couldn't find values.");
             }
 
-
-            /**CleanUp**/
-            x.clear();
-            y.clear();
         }
     }
 }
