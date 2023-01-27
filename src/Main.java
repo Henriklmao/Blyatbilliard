@@ -1,14 +1,12 @@
 /**
- *      ---Blyatbilliard Main class by Henrik---
- *
- *  Sum.kern (https://www.mg-werl.de/sum/) based simulation of 2D billiard balls on Tables
- *  Idea: School Project - Billiardspiel (2022 BGH)
- *
+ * ---Blyatbilliard Main class by Henrik---
+ * <p>
+ * Sum.kern (https://www.mg-werl.de/sum/) based simulation of 2D billiard balls on Tables
+ * Idea: School Project - Billiardspiel (2022 BGH)
  */
 
 import sum.kern.Bildschirm;
 
-import javax.management.loading.MLet;
 import java.util.ArrayList;
 
 public class Main {
@@ -63,9 +61,9 @@ public class Main {
     }
 
     static void Program(Bildschirm bildschirm, Tisch tischA, Tisch tischB, ArrayList<Kugel> KugelnA,
-            ArrayList<Kugel> KugelnB) throws InterruptedException {
+                        ArrayList<Kugel> KugelnB) throws InterruptedException {
         while (!IsGameOver) {
-            System.gc(); // Raises garbage collector priority. Allows multithreading on less powerful machines.
+            System.gc(); // Raises garbage collector priority. Big optimisation for Multithreading.
 
             // Redraw tables
             tischA.zeichnen();
@@ -83,13 +81,13 @@ public class Main {
 
             // Test for death
             for (int i = 0; i < KugelnA.size(); i++) {
-                if (!KugelnA.get(i).isAlive()) {
+                if (KugelnA.get(i).isAlive()) {
                     KugelnA.remove(i);
                     System.out.println(i + " of A is dead");// announce death
                 }
             }
             for (int i = 0; i < KugelnB.size(); i++) {
-                if (!KugelnB.get(i).isAlive()) {
+                if (KugelnB.get(i).isAlive()) {
                     KugelnB.remove(i);
                     System.out.println(i + " of B is dead");// announce death
                 }
@@ -100,19 +98,24 @@ public class Main {
                 IsGameOver = true;
                 System.out.println("Game Over");
             }
-            // Construct two threads
-            if (ticks > 20) {
-                Collisionhandler collider1 = new Collisionhandler(KugelnA, ballAS);
-                Collisionhandler collider2 = new Collisionhandler(KugelnB, ballBS);
-                // Start both threads
-                collider1.start();
-                collider2.start();
-                // wait for both threads to be finished
-                collider1.join();
-                collider2.join();
-            }else ticks++;
 
+            if (ticks > 300) { // Waits for n ticks to prevent useless collisions at start.
+                collisionCheck(KugelnA, KugelnB);
+            } else ticks++;
         }
         // Placeholder for Gameover screen.
+    }
+
+    private static void collisionCheck(ArrayList<Kugel> KugelnA, ArrayList<Kugel> KugelnB) throws InterruptedException {
+
+        // Constructs
+        Collisionhandler collider1 = new Collisionhandler(KugelnA, ballAS);
+        Collisionhandler collider2 = new Collisionhandler(KugelnB, ballBS);
+        // Start both threads
+        collider1.start();
+        collider2.start();
+        // wait for both threads to be finished
+        collider1.join();
+        collider2.join();
     }
 }
