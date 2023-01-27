@@ -1,8 +1,7 @@
 /**
- *      ---Kugel Class by Henrik---
- *
- *      Ball meant to be used as an Object in an Array for Blytbilliard.
- *
+ * ---Kugel Class by Henrik---
+ * <p>
+ * Ball meant to be used as an Object in an Array for Blytbilliard.
  */
 
 import sum.kern.Bildschirm;
@@ -18,10 +17,9 @@ public class Kugel {
     Buntstift kugel = new Buntstift();
     Tisch tisch;
     Bildschirm bildschirm;
-    int id;
+    int justCollided;
 
     Kugel(int id, double radius, Bildschirm bildschirm, Tisch tisch) {
-        this.id = id;
         this.radius = radius;
         this.bildschirm = bildschirm;
         this.tisch = tisch;
@@ -54,6 +52,7 @@ public class Kugel {
         // Move and Redraw
         kugel.bewegeUm(speed);
         kugel.zeichneKreis(radius);
+        kugel.gibFrei();
 
         // slow down
         /*
@@ -73,7 +72,9 @@ public class Kugel {
         } else if (kugel.vPosition() + radius >= tisch.getUntererRand()) {
             bounce(true);
         }
-
+        if (justCollided > 0) {
+            this.justCollided = justCollided - (int) speed;
+        }
     }
 
     public void bounce(boolean vcol) {
@@ -85,13 +86,16 @@ public class Kugel {
         }
     }
 
-    public void collission(double x, double y) { // Calculate enemy angle of attack and reflect
+    public int collission(double x, double y) { // public int to avoid nesting
 
         /** Trigonometrische Beziehungen in der Berechnung von AoA fuer phys. korrekte Reflektion.
          * a = Hypotenuse
          * X = Gegenkatete
          * Y = Ankatete
          **/
+        if (justCollided != 0) return 0;
+
+        if (x == kugel.hPosition() && y == kugel.vPosition()) return 0;
         // get X/Y axis differences
         double deltaX = (x - kugel.hPosition());
 
@@ -103,7 +107,10 @@ public class Kugel {
         //double ang = ang*180/Math.PI;
         System.out.println(ang + "°");
 
-        kugel.dreheBis(180 - ang);
+        kugel.dreheUm(ang - 180);
+
+        justCollided = (int) speed * 15;
+        return 0;
     }
 
     public double GetX() {

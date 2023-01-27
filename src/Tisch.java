@@ -1,9 +1,8 @@
 /**
- *      ---Tisch Class by Henrik---
- *
- *      Table for Blyatbilliard. Used for visual representation of collisionborders for Kugel objects and
- *      as positional reference.
- *
+ * ---Tisch Class by Henrik---
+ * <p>
+ * Table for Blyatbilliard. Used for visual representation of collisionborders for Kugel objects and
+ * as positional reference.
  */
 import sum.kern.Buntstift;
 
