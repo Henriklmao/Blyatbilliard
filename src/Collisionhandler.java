@@ -20,7 +20,7 @@ public class Collisionhandler extends Thread {
     Collisionhandler(ArrayList<Kugel> table, double radius) {
         // Initialize constructor parameters as class variables.
         this.table = table;
-        this.radius = (int) radius + 1;
+        this.radius = (int) radius + 3;
     }
 
     @Override
@@ -45,9 +45,9 @@ public class Collisionhandler extends Thread {
 
         try { // Prevent crash due to multithreading array stuff.
             for (Kugel kugel : table) { // For every kugel Object
-                if (kugel.GetX() < x.get(i) + radius && kugel.GetX() > x.get(i) - radius) { // Check if X pos is in range of Kugel
+                if (kugel.GetX() < (x.get(i) + radius) && kugel.GetX() > (x.get(i) - radius)) { // Check if X pos is in range of Kugel
                     /** Check Kugel with x in range for correct Y in range**/
-                    if (kugel.GetY() < y.get(i) + radius && kugel.GetY() > y.get(i) - radius) { //If Y position of Kugel matches
+                    if (kugel.GetY() < (y.get(i) + radius) && kugel.GetY() > (y.get(i) - radius)) { //If Y position of Kugel matches
                         kugel.collission(x.get(i), y.get(i)); // collision method of retrospective kugel
                     }
                 }

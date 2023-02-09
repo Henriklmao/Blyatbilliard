@@ -63,7 +63,7 @@ public class Main {
     static void Program(Bildschirm bildschirm, Tisch tischA, Tisch tischB, ArrayList<Kugel> KugelnA,
                         ArrayList<Kugel> KugelnB) throws InterruptedException {
         while (!IsGameOver) {
-            System.gc(); // Raises garbage collector priority. Big optimisation for Multithreading.
+            // System.gc();
 
             // Redraw tables
             tischA.zeichnen();

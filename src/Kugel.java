@@ -14,17 +14,18 @@ public class Kugel {
 
     static double speed = 2;
     double radius;
+    static double mass; // Mass Equals the surface area of the kugel object.
     Buntstift kugel = new Buntstift();
     Tisch tisch;
     Bildschirm bildschirm;
     int justCollided;
     boolean isDead = false;
 
-    Kugel(int id, double radius, Bildschirm bildschirm, Tisch tisch) {
-        this.radius = radius;
+    Kugel(int id, double r, Bildschirm bildschirm, Tisch tisch) {
+        this.radius = r;
         this.bildschirm = bildschirm;
         this.tisch = tisch;
-
+        mass = r*r*Math.PI/10; // r*r because it is faster than Math.pow as exponentation is so much slower.
         center();
     }
 
@@ -55,9 +56,8 @@ public class Kugel {
         kugel.zeichneKreis(radius);
         kugel.gibFrei();
 
-
-        // Kill
-        if (speed == 0) {
+        // Kill object if it stopped.
+        if (speed < 0) {
             isDead = true;
         }
 
@@ -86,31 +86,27 @@ public class Kugel {
         speed = speed - .0001;
     }
 
+    /** Trigonometrische Beziehungen in der Berechnung von AoA für phys. korrekte Reflektion.
+     * a = Hypotenuse
+     * X = Gegenkatete
+     * Y = Ankatete
+     **/
     public int collission(double x, double y) { // public int to avoid nesting
 
-        /** Trigonometrische Beziehungen in der Berechnung von AoA fuer phys. korrekte Reflektion.
-         * a = Hypotenuse
-         * X = Gegenkatete
-         * Y = Ankatete
-         **/
         if (justCollided != 0) return 0;
-
+        // Ignore if Collisionhandler detects wrong collisions.
         if (x == kugel.hPosition() && y == kugel.vPosition()) return 0;
         // get X/Y axis differences
         double deltaX = (x - kugel.hPosition());
-
         double deltaY = (y - kugel.vPosition());
 
-        // Calculate
         double ang = Math.toDegrees(Math.atan(deltaX / deltaY));
-
         //double ang = ang*180/Math.PI;
         System.out.println(ang + "°");
-
         kugel.dreheUm(ang - 180);
-
-        justCollided = (int) speed * 20;
+        this.justCollided = (int) speed * 20;
         speed = speed - .0005;
+
         return 0;
     }
 
